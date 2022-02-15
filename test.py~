@@ -1,0 +1,35 @@
+import multiprocessing as mp
+import numpy as np
+import time
+import matplotlib.pyplot as plt
+
+def random_square(seed):
+    np.random.seed(seed)
+    random_num = np.random.randint(1, 10)
+    return random_num**2
+
+def plot(result):
+    fig = plt.figure()
+    ax = plt.axes()
+    plt.hist(result)
+    plt.show()
+
+def dice(n):
+    result = np.random.randint(1,7)
+    return result
+
+n_cpu = mp.cpu_count()
+
+pool = mp.Pool(processes=n_cpu)
+
+t0 = time.time()
+
+result = [pool.map(dice, range(10000000))]
+
+t1 = time.time()
+
+print(t1-t0)
+
+#plot(result)
+
+
